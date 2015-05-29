@@ -17,6 +17,7 @@ set autowriteall
 
 " Autocommands --------------------- {{{
 autocmd VimEnter * IndentGuidesEnable
+autocmd VimEnter * :call SetMyRuler()
 au FocusGained,BufEnter * :silent! !
 au FocusLost,WinLeave * :silent! w
 let g:indent_guides_start_level = 2
@@ -28,10 +29,13 @@ set foldmethod=marker
 " }}}
 
 " Set the ruler to column 80 ---------- {{{
-if &filetype != "txt" && &filetype != "vim" 
-   set cc=80
-   hi ColorColumn ctermbg=52
-endif
+function! SetMyRuler()
+   let fts=["text", "vim"]
+   if index(fts, &filetype) == -1 
+      setlocal cc=80
+      hi ColorColumn ctermbg=52
+   endif
+endfunction
 " }}}
 
 " Statusline ------------ {{{
@@ -44,6 +48,9 @@ set statusline+=%4l/%-4L\ Column:%2c\ \ \ \ \ \ \ \ \ \ \ \ \  " right side
 " Mapping --------------- {{{
 let mapleader = "-"
 
+" mapping to remember
+" nnoremap <F5> check python files to match PEP8
+" nnoremap <F6> modify python file as much as possible to match PEP8
 " move the line down
 nnoremap <c-j> ddp
 " move the line up
@@ -53,13 +60,18 @@ nnoremap dc ^Dpo<esc>p
 " vertical split opening ~/.vimrc to edit it
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " save, copy and source the ~/.vimrc
-nnoremap <leader>sv :w<cr> :!cp $MYVIMRC ./.save_file/vimrc<cr> :source $MYVIMRC<cr>
+nnoremap <leader>sv :w<cr> :!cp -f $MYVIMRC ~/.save_file/vimrc/.vimrc<cr> :source $MYVIMRC<cr>
 " surround the word under the carret
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>` viw<esc>a`<esc>hbi`<esc>lel
 nnoremap <leader>< viw<esc>a><esc>hbi<<esc>lel
 nnoremap <leader>> viw<esc>a><esc>hbi<<esc>lel
+nnoremap <leader>> viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>) viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
 
 " switch to lower case the word under the carret
 inoremap <c-l> <ESC>vawuei
@@ -67,9 +79,13 @@ inoremap <c-l> <ESC>vawuei
 inoremap <c-u> <ESC>vawUei
 
 " surround the block under the carret
-vnoremap <leader>" <esc>a"<esc>h'<i"<esc>l`>l
-vnoremap <leader>' <esc>a'<esc>h'<i'<esc>l`>l
-vnoremap <leader>` <esc>a`<esc>h'<i`<esc>l`>l
-vnoremap <leader>< <esc>a><esc>h'<i<<esc>l`>l
-vnoremap <leader>> <esc>a><esc>h'<i<<esc>l`>l
+vnoremap <leader>" <esc>a"<esc>h`<i"<esc>l`>l
+vnoremap <leader>' <esc>a'<esc>h`<i'<esc>l`>l
+vnoremap <leader>` <esc>a`<esc>h`<i`<esc>l`>l
+vnoremap <leader>< <esc>a><esc>h`<i<<esc>l`>l
+vnoremap <leader>> <esc>a><esc>h`<i<<esc>l`>l
+vnoremap <leader>) <esc>a)<esc>h`<i(<esc>l`>l
+vnoremap <leader>( <esc>a)<esc>h`<i(<esc>l`>l
+vnoremap <leader>[ <esc>a]<esc>h`<i[<esc>l`>l
+vnoremap <leader>] <esc>a]<esc>h`<i[<esc>l`>l
 " }}}
