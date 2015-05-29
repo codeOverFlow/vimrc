@@ -17,9 +17,17 @@ set autowriteall
 
 " Autocommands --------------------- {{{
 autocmd VimEnter * IndentGuidesEnable
-autocmd VimEnter * :call SetMyRuler()
+autocmd BufRead * :call SetMyRuler()
 au FocusGained,BufEnter * :silent! !
 au FocusLost,WinLeave * :silent! w
+augroup python_file
+   autocmd!
+   autocmd FileType python :iabbrev pyHead #!/usr/bin/env python
+            \<cr># -*- encoding: utf-8 -*-
+augroup END
+" }}}
+
+" Variables ------------------ {{{
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 " }}}
