@@ -13,6 +13,10 @@ set background=dark
 set et
 set autoread
 set autowriteall
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000
+set undoreload=10000
 " }}}
 
 " Autocommands --------------------- {{{
@@ -96,4 +100,9 @@ vnoremap <leader>) <esc>a)<esc>h`<i(<esc>l`>l
 vnoremap <leader>( <esc>a)<esc>h`<i(<esc>l`>l
 vnoremap <leader>[ <esc>a]<esc>h`<i[<esc>l`>l
 vnoremap <leader>] <esc>a]<esc>h`<i[<esc>l`>l
+
+nmap <leader>cc :botright cope<cr>
+nmap <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+nmap <leader>n :cn<cr>
+nmap <leader>p :cp<cr>
 " }}}
